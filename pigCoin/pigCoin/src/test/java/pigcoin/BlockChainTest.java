@@ -25,8 +25,8 @@ public class BlockChainTest {
 
         Wallet wallet5 = new Wallet();
         Wallet wallet6 = new Wallet();
-        wallet3.generateKeyPair();
-        wallet4.generateKeyPair();
+        wallet5.generateKeyPair();
+        wallet6.generateKeyPair();
         Transaction transaction3 = new Transaction("f1", "5", wallet5.getAddress(), wallet6.getAddress(), 10.0, "Take it!");
 
         BlockChain blockChain  = new BlockChain();

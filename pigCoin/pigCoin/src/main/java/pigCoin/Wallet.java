@@ -11,30 +11,70 @@ public class Wallet {
     private double balance = 0.0d;
 
 	public void setSK(PrivateKey sKey) {
-        this.sKey = sKey;
+                this.sKey = sKey;
 	}
 
 	public void setAddress(PublicKey address) {
-        this.address = address; 
+                this.address = address; 
 	}
 
 	public PublicKey getAddress() {
 		return this.address;
 	}
 
+        public double getTotal_input(){
+                return this.total_input;
+        }
+
+        public double getTotal_ouput(){
+                return this.total_output;
+        }
+
+        public double getBalance(){
+                return this.balance;
+        }
+
 	public void generateKeyPair() {
-        PrivateKey sKey = GenSig.generateKeyPair().getPrivate();
-        setSK(sKey);
-        PublicKey address = GenSig.generateKeyPair().getPublic();
-        setAddress(address);
+                PrivateKey sKey = GenSig.generateKeyPair().getPrivate();
+                setSK(sKey);
+                PublicKey address = GenSig.generateKeyPair().getPublic();
+                setAddress(address);
 	}
-    
-    @Override
-    public String toString(){
-        return "Wallet = " + getAddress().hashCode() + '\n' +
-                "Total input = " + total_input + '\n' +
-                "Total ouput = " + total_output + '\n' + 
-                "Balance = " + balance;
+
+        private void setTotal_input(double input){
+                this.total_input += input;
+        }    
+
+        private void setTotal_output(double output){
+                this.total_output += output;
+        }
+
+        private void setBalance(){
+                this.balance = this.total_input - this.total_output;
+        }
+
+        public void loadCoins(BlockChain bChain) {
+                bChain.getBlockChain().stream().filter(t -> t.getpKey_recipent().equals(this.address)).forEach(t -> {
+                        double inpt = t.getPigcoins();
+                        setTotal_input(inpt);
+                });
+
+                bChain.getBlockChain().stream().filter(t -> t.getpKey_sender().equals(this.address)).forEach(t -> {
+                        double oupt = t.getPigcoins();
+                        setTotal_output(oupt);
+                });
+
+                setBalance();
+        
+        }
+
+        @Override
+        public String toString(){
+                return '\n' + "Wallet = " + getAddress().hashCode() + '\n' +
+                        "Total input = " + total_input + '\n' +
+                        "Total ouput = " + total_output + '\n' + 
+                        "Balance = " + balance;
     }
+
     
 }

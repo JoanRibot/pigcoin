@@ -6,6 +6,7 @@ import java.util.List;
 public class BlockChain {
     private List<Transaction> blockChain = new ArrayList<>();
 
+
     public void addOrigin(Transaction transaction){
         blockChain.add(transaction);
     }
