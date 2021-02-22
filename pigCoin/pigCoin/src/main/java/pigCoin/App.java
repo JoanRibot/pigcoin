@@ -112,17 +112,17 @@ public class App {
          * y mostrarlas
          */
         
-        // System.out.println("\n" + "Ver las transacciones ENTRANTES de la wallet_1" + "\n" + 
-        //                           "=============================================="        );
-        // wallet_1.loadInputTransactions(bChain);
-        // System.out.println("Wallet = " + wallet_1.getAddress().hashCode());
-        // System.out.println("Transacciones = " + wallet_1.getInputTransactions().toString());
+        System.out.println("\n" + "Ver las transacciones ENTRANTES de la wallet_1" + "\n" + 
+                                  "=============================================="        );
+        wallet_1.loadInputTransactions(bChain);
+        System.out.println("Wallet = " + wallet_1.getAddress().hashCode());
+        System.out.println("Transacciones = " + wallet_1.getInputTransactions().toString());
 
-        // System.out.println("\n" + "Ver las transacciones ENVIADAS de la wallet_1" + "\n" + 
-        //                           "=============================================="        );
-        // wallet_1.loadOutputTransactions(bChain);
-        // System.out.println("Wallet = " + wallet_1.getAddress().hashCode());
-        // System.out.println("Transacciones = " + wallet_1.getOutputTransactions().toString());
+        System.out.println("\n" + "Ver las transacciones ENVIADAS de la wallet_1" + "\n" + 
+                                  "=============================================="        );
+        wallet_1.loadOutputTransactions(bChain);
+        System.out.println("Wallet = " + wallet_1.getAddress().hashCode());
+        System.out.println("Transacciones = " + wallet_1.getOutputTransactions().toString());
 
         // System.out.println("\n" + "Ver las transacciones entrantes de la wallet_2" + "\n" + 
         //                           "=============================================="        );

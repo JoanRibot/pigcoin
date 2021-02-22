@@ -49,12 +49,12 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "hash = " + getHash() + '\n' + 
+        return '\n' +"hash = " + getHash() + '\n' + 
                 "prev_hash = " + getPrev_hash() + '\n' +
                 "pKey_sender = " + getpKey_sender().hashCode() + '\n' +
                 "pKey_recipent = " + getpKey_recipent().hashCode() + '\n' +
                 "pigcoins = " + getPigcoins() + '\n' +
-                "message = " + getMessage();
+                "message = " + getMessage() + '\n';
     }
 
 }

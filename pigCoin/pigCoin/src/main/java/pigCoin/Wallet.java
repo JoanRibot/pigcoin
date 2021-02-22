@@ -2,6 +2,8 @@ package pigCoin;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Wallet {
     private PublicKey address;
@@ -9,6 +11,8 @@ public class Wallet {
     private double total_input = 0.0d;
     private double total_output = 0.0d;
     private double balance = 0.0d;
+    private List<Transaction> inputTransactions = new ArrayList<>();
+    private List<Transaction> outputTransactions = new ArrayList<>();
 
 	public void setSK(PrivateKey sKey) {
                 this.sKey = sKey;
@@ -54,20 +58,39 @@ public class Wallet {
         }
 
         public void loadCoins(BlockChain bChain) {
+                loadInputTransactions(bChain);
+                loadOutputTransactions(bChain);
+                setBalance();      
+        }
+
+
+        public void loadInputTransactions(BlockChain bChain) {
                 bChain.getBlockChain().stream().filter(t -> t.getpKey_recipent().equals(this.address)).forEach(t -> {
                         double inpt = t.getPigcoins();
                         setTotal_input(inpt);
+                        this.inputTransactions.add(t);
                 });
 
+                setBalance();      
+        }
+
+        public List<Transaction> getInputTransactions() {
+                return this.inputTransactions;
+        }
+
+        public List<Transaction> getOutputTransactions(){
+                return this.outputTransactions;
+        }
+
+        public void loadOutputTransactions(BlockChain bChain){
                 bChain.getBlockChain().stream().filter(t -> t.getpKey_sender().equals(this.address)).forEach(t -> {
                         double oupt = t.getPigcoins();
                         setTotal_output(oupt);
+                        this.outputTransactions.add(t);
                 });
+                setBalance();      
 
-                setBalance();
-        
         }
-
         @Override
         public String toString(){
                 return '\n' + "Wallet = " + getAddress().hashCode() + '\n' +
@@ -75,6 +98,10 @@ public class Wallet {
                         "Total ouput = " + total_output + '\n' + 
                         "Balance = " + balance;
     }
+
+
+
+
 
     
 }
