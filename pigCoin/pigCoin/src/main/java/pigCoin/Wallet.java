@@ -58,20 +58,24 @@ public class Wallet {
         }
 
         public void loadCoins(BlockChain bChain) {
-                loadInputTransactions(bChain);
-                loadOutputTransactions(bChain);
-                setBalance();      
+                bChain.getBlockChain().stream().filter(t -> t.getpKey_recipent().equals(this.address)).forEach(t -> {
+                        double inpt = t.getPigcoins();
+                        setTotal_input(inpt);
+                });    
+                bChain.getBlockChain().stream().filter(t -> t.getpKey_sender().equals(this.address)).forEach(t -> {
+                        double oupt = t.getPigcoins();
+                        setTotal_output(oupt);
+                });
+                
+                setBalance();  
         }
 
 
         public void loadInputTransactions(BlockChain bChain) {
                 bChain.getBlockChain().stream().filter(t -> t.getpKey_recipent().equals(this.address)).forEach(t -> {
-                        double inpt = t.getPigcoins();
-                        setTotal_input(inpt);
                         this.inputTransactions.add(t);
                 });
-
-                setBalance();      
+    
         }
 
         public List<Transaction> getInputTransactions() {
@@ -84,11 +88,8 @@ public class Wallet {
 
         public void loadOutputTransactions(BlockChain bChain){
                 bChain.getBlockChain().stream().filter(t -> t.getpKey_sender().equals(this.address)).forEach(t -> {
-                        double oupt = t.getPigcoins();
-                        setTotal_output(oupt);
                         this.outputTransactions.add(t);
                 });
-                setBalance();      
 
         }
         @Override
